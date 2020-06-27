@@ -1,11 +1,15 @@
-import express from "express";
+import express from 'express';
+import path from 'path';
+import cors from 'cors';
+import routes from './routes';
 
 const app = express();
 
-app.get("/users", (req,res)=>{
-  res.json({users: [{id: 1, name: "Alef Ojeda"}]});
-});
+app.use(express.json());
+app.use(routes);
+app.use('/uploads', express.static(path.resolve(__dirname,"..","uploads")));
+app.use(cors());
 
-app.listen(3333, ()=>{
+app.listen(3333, () => {
   console.log("Listening on port 3333.");
 });
